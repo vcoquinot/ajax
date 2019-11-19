@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ajax</title>
+</head>
+<body>
+    <h1>onerror</h1>
+    <!-- problème de réseau en pleine communication-->
+
+    <script>
+        //instanciation
+        const req = new XMLHttpRequest();
+
+        // Création requête avec 2 paramètres (la méthode get + url de la ressource, asynch: true ou synch:false)
+        req.open('GET', 'https://www.neore.fr/fichier.json', false);
+
+        function monErreur(event) {
+            // Cette fonction sera appellée uniquement en cas d'erreur de la requête.
+            // Il nous suffit d'indiquer l'erreur dans la console pour en savoir plus.
+            console.error("Erreur", event.target.status);
+        }
+
+        req.onerror = monErreur; 
+        // Ceci n'est pas un appel direct de la fonction 
+        //mais bien une référence à la fonction à appeler quand l'événement se produira
+
+                
+        //exécution requête
+        req.send(null);
+
+
+    
+    </script>
+    
+</body>
+</html>

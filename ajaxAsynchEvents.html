@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ajax Events</title>
+</head>
+<body>
+    <h1>Ajax Events</h1>
+
+    <script>
+        //instanciation
+        const req = new XMLHttpRequest();
+
+        
+
+        function maProgression(event) {
+            console.log('Execution de ma progression');
+
+        // L'argument event va contenir deux propriétés intéressantes :
+        // event.loaded : nous indique la quantité de d'octets téléchargés.
+        // event.total : la quantité d'octets totale attendue.
+        // Nous affichons ça dans la console.
+        // MAIS, MAIS, MAIS !!! Au préalable nous allons vérifier que des données
+        // existent sinon nous aurons une belle erreur d'execution.
+
+            if (event.lengthComputable) {
+                console.log("Données totales : ", event.total);//poids
+                console.log("Données reçues : ", event.loaded);
+            } else {
+                console.log("Pas de données calculables");
+            }
+        }
+
+        function monErreur(event) {
+            console.log('Execution de mon erreur');
+
+            // Cette fonction sera appellée uniquement en cas d'erreur de la requête.
+            // Il nous suffit d'indiquer l'erreur dans la console pour en savoir plus.
+            console.error("Erreur", event.target.status);
+        }        
+
+        function enCours(event) {
+            console.log('Execution de en cours');
+
+            // On teste directement le status de notre instance de XMLHttpRequest
+            if (this.status === 200) {
+                // Tout baigne, voici le contenu de la réponse
+                console.log("Contenu", this.responseText);
+            } else {
+                // On y est pas encore, voici le statut actuel
+                console.log("Statut actuel", this.status, this.statusText);
+            }
+        }
+        
+        req.onprogress = maProgression;
+        // Ceci n'est pas un appel direct de la fonction
+        // mais bien une référence à la fonction à appeler quand l'événement se produira
+
+        req.onerror = monErreur; 
+        // Ceci n'est pas un appel direct de la fonction 
+        //mais bien une référence à la fonction à appeler quand l'événement se produira
+
+        req.onload = enCours;// Ceci n'est pas un appel direct de la fonction 
+        //mais bien une référence à la fonction à appeler quand l'événement se produira
+
+// Création requête avec 2 paramètres (la méthode get + url de la ressource,
+        // asynch: true ou synch:false)
+        req.open('GET', 'https://www.neore.fr/fichier.json', true);
+        //exécution requête
+        req.send(null);
+
+
+    
+    </script>
+    
+</body>
+</html>

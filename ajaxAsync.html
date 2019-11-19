@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ajax</title>
+</head>
+<body>
+    <h1>Ajax</h1>
+
+    <script>
+        //instanciation
+        const req = new XMLHttpRequest();
+
+        // Création requête avec 2 paramètres (la méthode get + url de la ressource, asynch: true ou synch:false)
+        req.open('GET', 'https://www.neore.fr/fichier.json', false);
+
+        function maProgression(event) {
+
+        // L'argument event va contenir deux propriétés intéressantes :
+        // event.loaded : nous indique la quantité de d'octets téléchargés.
+        // event.total : la quantité d'octets totale attendue.
+        // Nous affichons ça dans la console.
+        // MAIS, MAIS, MAIS !!! Au préalable nous allons vérifier que des données
+        // existent sinon nous aurons une belle erreur d'execution.
+
+            if (event.lengthComputable) {
+                console.log("Données totales : ", event.total);//poids
+                console.log("Données reçues : ", event.loaded);
+            } else {
+                console.log("Pas de données calculables");
+            }
+        }
+
+        req.onprogress = maProgression;
+        // Ceci n'est pas un appel direct de la fonction
+        // mais bien une référence à la fonction à appeler quand l'événement se produira
+
+        //exécution requête
+        req.send(null);
+
+
+    
+    </script>
+    
+</body>
+</html>

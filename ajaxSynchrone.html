@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ajax</title>
+</head>
+<body>
+    <h1>Ajax</h1>
+
+    <script>
+        //instanciation
+        const req = new XMLHttpRequest();
+
+        // Création requête avec 2 paramètres (la méthode get + url de la ressource, asynch: true ou synch:false)
+        req.open('GET', 'https://www.neore.fr/fichier.json', false);
+
+        //exécution requête
+        req.send(null);
+
+        if (req.status === 200) {
+            // Yeah ! Super, nous avons un code de réponse OK
+            // Voyons le contenu de la réponse dans la console :
+            console.log("statut 200");
+            console.log(req.responseText);
+
+        } else {
+            // Crénom d’un vieux mérou, y’a une .ouille dans le potage !
+            // Nous n’avons pas eu un code de réponse OK, mais un autre...
+            // Voyons ça dans la console
+            console.log("Code de réponse :", req.status);
+
+            // Avec un peu plus d’info :
+            console.log("Code de réponse :", req.statusText);
+        }
+        
+    
+    </script>
+    
+</body>
+</html>
